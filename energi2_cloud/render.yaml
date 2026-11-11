@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: energi2
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: ENERGI2_INGEST_TOKEN
+        value: cambiar-este-token
+      - key: ENERGI2_DEVICES
+        value: dev-prueba,ebc170a2fda3434684fdqx
+      - key: DATABASE_URL
+        fromDatabase:
+          name: energi2-db
+          property: connectionString
+
+databases:
+  - name: energi2-db
+    databaseName: energi2
+    plan: free
