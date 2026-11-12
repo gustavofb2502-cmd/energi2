@@ -182,6 +182,7 @@ def panel() -> str:
     return f"""
     <!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="refresh" content="10"><title>ENERGI 2 - Panel</title>
+        <link rel="manifest" href="/static/manifest.json">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <style>
             body {{ font-family: 'Segoe UI', sans-serif; background-color: #f4f7fb; color: #10203a; margin: 0; padding: 20px; }}
@@ -221,5 +222,16 @@ def panel() -> str:
                 options: {{ responsive: true, plugins: {{ legend: {{ display: false }} }}, scales: {{ y: {{ beginAtZero: true }} }} }}
             }});
         }});
-    </script></body></html>
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {{
+            navigator.serviceWorker.register('/static/sw.js')
+            .then(() => console.log('Service Worker registrado'))
+            .catch(err => console.error('Error', err));
+        }}
+    </script>
+    </body></html>
     """
+
+
+ 
